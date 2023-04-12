@@ -7,6 +7,9 @@ const Navbar = () => {
       <Link className="text-slate-50" to="/">
         Home
       </Link>
+      <Link className="text-slate-50" to="/register">
+        Register
+      </Link>
     </div>
   );
 };
