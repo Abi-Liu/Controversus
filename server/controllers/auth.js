@@ -50,32 +50,33 @@ exports.logout = (req, res) => {
 };
 
 exports.postSignup = (req, res, next) => {
+  let { confirmPassword, password, userName, email } = req.body.formData;
   const validationErrors = [];
-  if (!validator.isEmail(req.body.email))
+  if (!validator.isEmail(email))
     validationErrors.push({ msg: "Please enter a valid email address." });
-  if (!validator.isLength(req.body.password, { min: 6 }))
+  if (!validator.isLength(password, { min: 6 }))
     validationErrors.push({
       msg: "Password must be at least 6 characters long",
     });
-  if (req.body.password !== req.body.confirmPassword)
+  if (password !== confirmPassword)
     validationErrors.push({ msg: "Passwords do not match" });
 
   if (validationErrors.length) {
     req.flash("errors", validationErrors);
     return res.status(500).json(validationErrors);
   }
-  req.body.email = validator.normalizeEmail(req.body.email, {
+  email = validator.normalizeEmail(email, {
     gmail_remove_dots: false,
   });
 
   const user = new User({
-    userName: req.body.userName,
-    email: req.body.email,
-    password: req.body.password,
+    userName: userName,
+    email: email,
+    password: password,
   });
 
   User.findOne(
-    { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
+    { $or: [{ email: email }, { userName: userName }] },
     (err, existingUser) => {
       if (err) {
         return next(err);

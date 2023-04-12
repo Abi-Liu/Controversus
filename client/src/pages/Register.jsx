@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Register = () => {
   const [formData, setFormData] = useState({});
@@ -14,11 +15,7 @@ const Register = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("http://localhost:3001/auth/signup", {
-        userName,
-        email,
-        password,
-      });
+      await axios.post("http://localhost:8000/auth/signup", { formData });
       alert("Registration Complete! Login Now.");
     } catch (error) {
       console.error(error);
@@ -31,8 +28,8 @@ const Register = () => {
       <form onSubmit={onSubmit}>
         <input
           type="text"
-          id="username"
-          value={formData.username}
+          id="userName"
+          value={formData.userName}
           onChange={handleChange}
           placeholder="Username"
         />
@@ -57,6 +54,7 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Confirm Password"
         />
+        <button>Submit</button>
       </form>
     </div>
   );

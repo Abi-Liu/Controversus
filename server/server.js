@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
@@ -16,6 +17,14 @@ connectDB();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+  })
+);
 
 // Sessions
 app.use(
