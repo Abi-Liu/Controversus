@@ -5,10 +5,6 @@ const PollSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  caption: {
-    type: String,
-    required: true,
-  },
   optionOne: {
     type: [String],
     default: [],
