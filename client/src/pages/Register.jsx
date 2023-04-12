@@ -28,7 +28,7 @@ const Register = () => {
   return (
     <div>
       <h1>Register</h1>
-      <form onSubmit={onSumbit}>
+      <form onSubmit={onSubmit}>
         <input
           type="text"
           id="username"
